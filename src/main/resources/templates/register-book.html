@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8">
+  <title>Book Finder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://unpkg.com/vue@2.5.21"></script>
+</head>
+<body>
+  <div class="container" id="app">
+      <h3 class="text-center">Book Finder</h3>
+      <p> Search：<form v-on:submit.prevent="getResult(query)">
+        <input type="text" placeholder="Type in your search" v-model="query" /></p> 
+          <div class="book_wrapper">
+            <div class="book_card" v-for="item in items">
+
+s
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                 <img class="card-img" th:src="@{v-bind:src='item.volumeInfo.imageLinks.smallThumbnail'}" /> 
+                 <!-- <img th:src="@{'{{item.volumeInfo.imageLinks.thumbnail}}'}"> -->
+                </div>
+
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{item.volumeInfo.title}}</h5>
+                    <p class="card-text">{{item.volumeInfo.authors}}</p>    
+                    <p class="card-text"><small class="text-muted">{{item.volumeInfo.publisher}}</small></p>    
+                  </div>
+
+                  <div class="book_button">
+                    <a v-bind:href="item.volumeInfo.previewLink" class="waves-effect waves-light btn" target="_blank">show detail</a>
+                  </div>
+                </div>
+          </div>
+        </div>
+       </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script th:src="@{/js/register_book.js}"></script>
+</body>
+
+</html>
